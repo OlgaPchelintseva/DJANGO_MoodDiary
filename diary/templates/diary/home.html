@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>{% block title %} Анонимный дневник настроения {% endblock %}</title>
+</head>
+<body class="{% if dark_theme %}dark{% endif %}">
+    <header>
+        <h1>Анонимный дневник настроения</h1>
+    </header>
+    <main>
+        {% block content %}
+            <section>
+                <h2>Мое настроение на сегодня</h2>
+                <form method="post" action="{% url 'save' %}">
+                    {% csrf_token %}
+                    <div>
+                        <label>Настроение</label>
+                        <select name="mood">
+                            <option value="very_good">😀</option>
+                            <option value="good">🙂</option>
+                            <option value="normal">😐</option>
+                            <option value="bad">☹️</option>
+                            <option value="very_bad">😢</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Заметка</label>
+                        <textarea name="note" maxlength="140" rows="3" placeholder="Коротко о дне..."></textarea>
+                    </div>
+                    <button type="submit">Сохранить</button>
+                </form>
+                <form method="post" action="{% url 'toggle_theme' %}">
+                    {% csrf_token %}
+                    <button type="submit">Сменить тему</button>
+                </form>
+            </section>
+            <section>
+                <h2>Моя неделя</h2>
+                {% if week_list %}
+                    <ul>
+                        {% for date_str, data in week_list %}
+                            <li>
+                                <p><b>{{ date_str }}:</b></p>
+                                <div>
+                                    <span>
+                                        {% if data.mood == 'very_good' %}😀{% elif data.mood == 'good' %}🙂{% elif data.mood == 'normal' %}😐{% elif data.mood == 'bad' %}☹️{% elif data.mood == 'very_bad' %}😢{% endif %}
+                                    </span>
+                                    <p>"{{ data.note|default:"—" }}"</p>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>Пока нет записей. Добавьте первое настроение!</p>
+                {% endif %}
+                <form method="post" action="{% url 'reset' %}">
+                    {% csrf_token %}
+                    <button type="submit">Очистить историю</button>
+                </form>
+                <form method="post" action="{% url 'generate_share' %}">
+                    {% csrf_token %}
+                    <button type="submit">Поделиться настроением</button>
+                </form>
+                {% if share_url %}
+                    <div>
+                        <h3>Ссылка для поделиться:</h3>
+                        <a href="{{ share_url }}" class="{% if dark_theme %}dark-a{% endif %}">{{ share_url }}</a>
+                    </div>
+                {% endif %}
+            </section>
+            <section>
+                <h2>Статистика настроения</h2>
+                <div>
+                    <p>Самое частое настроение: 
+                        {% if most_common_mood %}
+                            {% if most_common_mood == 'very_good' %}😀{% elif most_common_mood == 'good' %}🙂{% elif most_common_mood == 'normal' %}😐{% elif most_common_mood == 'bad' %}☹️{% elif most_common_mood == 'very_bad' %}😢{% endif %}
+                        {% else %}
+                            💫
+                        {% endif %}
+                    </p>
+                    <p>Общее число записей: {{ count }}</p>
+                    <p>Количество дней записей подряд: {{ streak }}</p>
+                    <p>Прогноз настроения на завтра: {{ forecast_mood }}</p>
+                </div>
+            </section>
+        {% endblock %}
+    </main>
+</body>
+</html>

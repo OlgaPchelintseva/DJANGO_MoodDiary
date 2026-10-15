@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Мое настроение</title>
+</head>
+<body class="{% if dark_theme %}dark{% endif %}">
+    <header>
+        <h1>Поделиться настроением</h1>
+    </header>
+    <main class="share-card">
+        {% if error %}
+            <section>
+                <h2>⚠️ Ошибка доступа</h2>
+                <p>{{ error }}</p>
+                <p>Ссылка действует ровно 1 час с момента создания.</p>
+
+                <a href="/" class="back-btn {% if dark_theme %}dark-btn{% endif %}">
+                    ← Вернуться в дневник
+                </a>
+
+            </section>
+        {% else %}
+            <section>
+                <h2>Последние записи (последние 7 дней)</h2>
+                {% if recent %}
+                    <ul>
+                        {% for date_str, data in recent %}
+                            <li>
+                                <p><b>{{ date_str }}:</b></p>
+                                <div>
+                                    <span>
+                                        {% if data.mood == 'very_good' %}😀{% elif data.mood == 'good' %}🙂{% elif data.mood == 'normal' %}😐{% elif data.mood == 'bad' %}☹️{% elif data.mood == 'very_bad' %}😢{% endif %}
+                                    </span>
+                                    <p>"{{ data.note|default:"—" }}"</p>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>Пока нет записей для показа.</p>
+                {% endif %}
+                <div >
+                    <a href="/" class="back-btn {% if dark_theme %}dark-btn{% endif %}">
+                        ← Вернуться в дневник
+                    </a>
+                </div>
+            </section>
+        {% endif %}
+    </main>
+</body>
+</html>

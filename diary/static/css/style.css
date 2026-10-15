@@ -1,0 +1,190 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #F5F6F7 ;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.6;
+}
+
+body.dark{
+    background: #1A2E5B;
+}
+
+header{
+    background: #1F3A5C;
+    padding: 1rem 2rem;
+    text-align: center;
+    color: #FFFFFF;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+body.dark > header{
+    background: #F5F6F7;
+    color: #1F3A5C;
+}
+
+main {
+    max-width: 1250px;
+    margin: 2rem auto;
+    padding: 1.5rem 3rem;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 3rem;
+}
+
+section {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    padding: 2rem;
+    color: #333333;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    background: #ffffff;
+}
+
+body.dark > main > section {
+    color: #F5F6F7;
+    background: #f5f6f70c;
+}
+
+h2, h3 {
+    color: #1A2E5B;
+    text-align: center;
+    width: 100%;
+}
+
+body.dark > main > section > h2 {
+    color: #FFFFFF;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+form > div {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+
+form select, form input {
+    padding: 0.7rem 1rem;
+    border: none;
+    cursor: pointer;
+    background: #FFFFFF;
+    outline: none;
+}
+
+body.dark > main > section > form select, form input {
+    background: #f5f6f700;
+}
+
+form textarea {
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-color: #1A2E5B;
+}
+
+form input:focus,
+form select:focus,
+form textarea:focus {
+    outline: none;
+    border-color: rgba(72, 116, 104, 0.4);
+}
+
+button {
+    border: none;
+    background: #1F3A5C;
+    color: #FFFFFF;
+    padding: 0.5rem 2rem;
+    cursor: pointer;
+    width: 12rem;
+    margin: 0 auto;
+}
+
+body.dark > main > section > form > button {
+    background: #F5F6F7;
+    color: #1A2E5B;
+    font-weight: 600;
+}
+
+button:hover {
+    background: #1A2E5B;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+body.dark > main > section > form > button:hover {
+    background: #FFFFFF;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+li {
+    list-style-type: none;
+    text-align: center;
+    padding: 0 1rem;
+}
+
+li > div {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-align: justify;
+    margin-bottom: 0.5rem;
+}
+
+section > div {
+    text-align: center;
+}
+
+.share-card {
+    max-width: 650px;
+}
+
+body.dark > main > section > div h3 {
+    color: #FFFFFF;
+}
+
+.back-btn {
+    border: none;
+    background: #1F3A5C;
+    padding: 0.5rem 2rem;
+    cursor: pointer;
+    margin: 0 auto;
+    text-decoration: none;
+    color: #FFFFFF;
+    font-weight: 600;
+}
+
+.back-btn:hover {
+    background: #1A2E5B;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.dark-btn {
+    background: #F5F6F7;
+    color: #1A2E5B;
+    font-weight: 600;
+}
+
+.dark-btn:hover{
+    background: #FFFFFF;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+body > main > section > div a {
+    color: #1F3A5C;
+}
+
+.dark-a{
+    color: #FFFFFF;
+}
